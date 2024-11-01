@@ -19,27 +19,28 @@ int	ft_atoi_philo(char *s, t_params *p)
 	long	n;
 
 	i = 0;
+	n = 0;
 	sign = 1;
 	while (s[i] <= 32)
 		i++;
 	if (s[i] == '+' || s[i] == '-')
 	{
 		if (s[i] == '-')
-			sign *= -1;
+			sign = -1;
+		i++;
 	}
-	i++;
 	while (s[i] >= '0' && s[i] <= '9')
 	{
 		n = n * 10 + (s[i] - '0');
 		i++;
 	}
 	check_min_max(sign, n, p);
-	return (sign * (int)n);
+	return ((int)sign * (int)n);
 }
 
 void	check_min_max(long sign, long n, t_params *p)
 {
-	if (sign * n > INT_MAX || sign * n < INT_MIN)
-		ft_error(p);
+	if ((sign * n) > INT_MAX || (sign * n) < INT_MIN)
+		ft_free(p);
 	return ;
 }

@@ -1,6 +1,6 @@
-SRCS        = main.c utils.c
+SRCS        = main.c utils.c free.c
 OBJS        = $(SRCS:.c=.o)
-NAME        = push_swap
+NAME        = philo
 CC          = cc
 RM          = rm -f
 CFLAGS      = -Wall -Wextra -Werror
@@ -15,7 +15,6 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@make clean -C
 	$(RM) $(OBJS)
 
 fclean: clean

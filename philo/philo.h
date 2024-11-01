@@ -43,4 +43,7 @@ typedef struct s_philosopher
 int					ft_atoi_philo(char *s, t_params *p);
 void				check_min_max(long sign, long n, t_params *p);
 
+// free.c
+void				ft_free(t_params *p);
+
 #endif
