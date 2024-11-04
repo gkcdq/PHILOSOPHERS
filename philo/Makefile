@@ -1,4 +1,4 @@
-SRCS        = main.c utils.c free.c
+SRCS        = main.c utils.c free.c routine.c
 OBJS        = $(SRCS:.c=.o)
 NAME        = philo
 CC          = cc
