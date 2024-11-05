@@ -28,14 +28,15 @@ typedef struct s_params
 	int				eat_time;
 	int				sleep_time;
 	int				nbr_of_eat_time;
-	int				count_eat;
 	int				p_dead;
+	pthread_mutex_t	mutex_dead;
 	pthread_mutex_t	*forks;
 }					t_params;
 
 typedef struct s_philo
 {
 	int				index;
+	int				count_eat;
 	long			last_eat;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
@@ -56,6 +57,6 @@ void				init_params(t_params **p, char **av);
 void				init_philo(t_philo *philo, t_params *params);
 
 // routine.c
-void				routine(void *arg);
+void				*routine(void *arg);
 
 #endif

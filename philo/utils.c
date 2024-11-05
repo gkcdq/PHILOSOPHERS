@@ -49,6 +49,6 @@ int	ft_atoi_philo(char *s, t_params *p)
 void	check_min_max(long sign, long n, t_params *p)
 {
 	if ((sign * n) > INT_MAX || (sign * n) < INT_MIN)
-		ft_free(p);
+		free(p);
 	return ;
 }

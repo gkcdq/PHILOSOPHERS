@@ -1,43 +1,56 @@
 #include "philo.h"
 
-void	eating_sleeping(t_philo *philo, t_params *params)
+void eating_sleeping(t_philo *philo, t_params *params)
 {
-    int max;
-
-    max = params->nbr_of_p;
+    pthread_mutex_lock(&params->mutex_dead);
     if (get_current_time() - philo->last_eat >= params->die_time)
     {
-        printf("Le philosophe %d est mort", philo->index);
+        printf("Le philosophe %d est mort\n", philo->index);
         params->p_dead = 1;
-        return ;
+        pthread_mutex_unlock(&params->mutex_dead);
+        return;
     }
-	pthread_mutex_lock(philo->left_fork);
-	printf("Le philosophe %d a pris sa fourchette\n", philo->index);
-	pthread_mutex_lock(philo->right_fork);
-	printf("Le philosophe %d a pris la fourchette de droite\n", philo->index);
-	philo->last_eat = get_current_time();
-    if (philo->index == max)
-        params->count_eat += 1;
-	printf("Le philosophe %d est entrain de Manger\n", philo->index);
-	usleep(params->eat_time * 1000);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
-	printf("Le philosophe %d est entrain de Penser\n", philo->index);
-	printf("Le philosophe %d est entrain de Dormir\n", philo->index);
-	usleep(params->sleep_time * 1000);
-	return ;
+    pthread_mutex_unlock(&params->mutex_dead);
+    if (philo->index % 2 == 0)
+    {
+        pthread_mutex_lock(philo->right_fork);
+        printf("Le philosophe %d a pris la fourchette de droite\n", philo->index);
+        pthread_mutex_lock(philo->left_fork);
+        printf("Le philosophe %d a pris la fourchette de gauche\n", philo->index);
+    }
+    else
+    {
+        pthread_mutex_lock(philo->left_fork);
+        printf("Le philosophe %d a pris la fourchette de gauche\n", philo->index);
+        pthread_mutex_lock(philo->right_fork);
+        printf("Le philosophe %d a pris la fourchette de droite\n", philo->index);
+    }
+    philo->last_eat = get_current_time();
+	philo->count_eat += 1;
+    printf("Le philosophe %d est en train de Manger\n", philo->index);
+    usleep(params->eat_time * 1000);
+    pthread_mutex_unlock(philo->left_fork);
+    pthread_mutex_unlock(philo->right_fork);
+    printf("Le philosophe %d est en train de Penser\n", philo->index);
+    printf("Le philosophe %d est en train de Dormir\n", philo->index);
+    usleep(params->sleep_time * 1000);
 }
 
-void	*routine(void *arg)
+void *routine(void *arg)
 {
-	t_philo *philo;
-	t_params *params;
+    t_philo *philo = (t_philo *)arg;
+    t_params *params = philo->params;
 
-	philo = (t_philo *)arg;
-	params = philo->params;
-	while (params->p_dead == 0 && (params->count_eat < params->nbr_of_eat_time))
-	{
-		eating_sleeping(philo, params);
-	}
-    return ;
+    while (philo->count_eat < params->nbr_of_eat_time)
+    {
+        pthread_mutex_lock(&params->mutex_dead);
+        if (params->p_dead)
+        {
+            pthread_mutex_unlock(&params->mutex_dead);
+            break;
+        }
+        pthread_mutex_unlock(&params->mutex_dead);
+        eating_sleeping(philo, params);
+    }
+    return NULL;
 }
