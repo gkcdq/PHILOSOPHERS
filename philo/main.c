@@ -21,6 +21,7 @@ int main(int argc, char **argv)
         pthread_join(philos[i].thread, NULL);
 		i++;
     }
+	i = 0;
 	while (i < params->nbr_of_p)
     {
         pthread_mutex_destroy(&params->forks[i]);
