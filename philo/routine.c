@@ -38,19 +38,21 @@ void eating_sleeping(t_philo *philo, t_params *params)
 
 void *routine(void *arg)
 {
-    t_philo *philo = (t_philo *)arg;
-    t_params *params = philo->params;
-
-    while (philo->count_eat < params->nbr_of_eat_time)
+    t_philo *philos;
+    t_params *params; 
+    
+    philos = (t_philo *)arg;
+    params = philos->params;
+    while (philos->count_eat < params->nbr_of_eat_time)
     {
         pthread_mutex_lock(&params->mutex_dead);
         if (params->p_dead)
         {
             pthread_mutex_unlock(&params->mutex_dead);
-            break;
+            return (NULL);
         }
         pthread_mutex_unlock(&params->mutex_dead);
-        eating_sleeping(philo, params);
+        eating_sleeping(philos, params);
     }
-    return NULL;
+    return (NULL);
 }

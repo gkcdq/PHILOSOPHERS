@@ -56,4 +56,7 @@ void				init_philo(t_philo *philo, t_params *params);
 // routine.c
 void				*routine(void *arg);
 
+// main.c
+void    			free_for_philos(t_params *params, t_philo *philos);
+
 #endif
