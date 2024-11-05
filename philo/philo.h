@@ -49,9 +49,6 @@ int					ft_atoi_philo(char *s, t_params *p);
 void				check_min_max(long sign, long n, t_params *p);
 long				get_current_time(void);
 
-// free.c
-void				ft_free(t_params *p);
-
 // init.c
 void				init_params(t_params **p, char **av);
 void				init_philo(t_philo *philo, t_params *params);
