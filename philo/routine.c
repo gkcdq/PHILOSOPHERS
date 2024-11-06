@@ -1,5 +1,48 @@
 #include "philo.h"
 
+void	pair_forks(t_philo *philo, t_params *params, long int c_time)
+{
+	pthread_mutex_lock(philo->right_fork);
+	pthread_mutex_lock(&params->protect_printf);
+	printf("[%ld] Le p* %d a pris la f* droite\n", c_time, philo->index);
+	pthread_mutex_unlock(&params->protect_printf);
+	pthread_mutex_lock(philo->left_fork);
+	pthread_mutex_lock(&params->protect_printf);
+	printf("[%ld] Le p* %d a pris la f* gauche\n", c_time, philo->index);
+	pthread_mutex_unlock(&params->protect_printf);
+}
+
+void	impair_forks(t_philo *philo, t_params *params, long int c_time)
+{
+	pthread_mutex_lock(philo->left_fork);
+	pthread_mutex_lock(&params->protect_printf);
+	printf("[%ld] Le p* %d a pris la f* gauche\n", c_time, philo->index);
+	pthread_mutex_unlock(&params->protect_printf);
+	pthread_mutex_lock(philo->right_fork);
+	pthread_mutex_lock(&params->protect_printf);
+	printf("[%ld] Le p* %d a pris la f* droite\n", c_time, philo->index);
+	pthread_mutex_unlock(&params->protect_printf);
+}
+
+void	after_taking_forks(t_philo *philo, t_params *params, long int c_time)
+{
+	philo->last_eat = get_current_time();
+	philo->count_eat += 1;
+	pthread_mutex_lock(&params->protect_printf);
+	printf("[%ld] Le p* %d est en train de Manger\n", c_time, philo->index);
+	pthread_mutex_unlock(&params->protect_printf);
+	usleep(params->eat_time * 1000);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_lock(&params->protect_printf);
+	printf("[%ld] Le p* %d est en train de Penser\n", c_time, philo->index);
+	pthread_mutex_unlock(&params->protect_printf);
+	pthread_mutex_lock(&params->protect_printf);
+	printf("[%ld] Le p* %d est en train de Dormir\n", c_time, philo->index);
+	pthread_mutex_unlock(&params->protect_printf);
+	usleep(params->sleep_time * 1000);
+}
+
 void	eating_sleeping(t_philo *philo, t_params *params)
 {
 	long int	c_time;
@@ -9,7 +52,7 @@ void	eating_sleeping(t_philo *philo, t_params *params)
 	if (get_current_time() - philo->last_eat >= params->die_time)
 	{
 		pthread_mutex_lock(&params->protect_printf);
-		printf("[-%ld-] Le p* %d est mort\n", c_time, philo->index);
+		printf("[%ld] Le p* %d est mort\n", c_time, philo->index);
 		pthread_mutex_unlock(&params->protect_printf);
 		params->p_dead = 1;
 		pthread_mutex_unlock(&params->mutex_dead);
@@ -17,44 +60,16 @@ void	eating_sleeping(t_philo *philo, t_params *params)
 	}
 	pthread_mutex_unlock(&params->mutex_dead);
 	if (philo->index % 2 != 0)
-		usleep(params->eat_time * 1000);
+		usleep(params->eat_time);
 	if (philo->index % 2 == 0)
 	{
-		pthread_mutex_lock(philo->right_fork);
-		pthread_mutex_lock(&params->protect_printf);
-		printf("[-%ld-] Le p* %d a pris la f* droite\n", c_time, philo->index);
-		pthread_mutex_unlock(&params->protect_printf);
-		pthread_mutex_lock(philo->left_fork);
-		pthread_mutex_lock(&params->protect_printf);
-		printf("[-%ld-] Le p* %d a pris la f* gauche\n", c_time, philo->index);
-		pthread_mutex_unlock(&params->protect_printf);
+		pair_forks(philo, params, c_time);
 	}
 	else
 	{
-		pthread_mutex_lock(philo->left_fork);
-		pthread_mutex_lock(&params->protect_printf);
-		printf("[-%ld-] Le p* %d a pris la f* gauche\n", c_time, philo->index);
-		pthread_mutex_unlock(&params->protect_printf);
-		pthread_mutex_lock(philo->right_fork);
-		pthread_mutex_lock(&params->protect_printf);
-		printf("[-%ld-] Le p* %d a pris la f* droite\n", c_time, philo->index);
-		pthread_mutex_unlock(&params->protect_printf);
+		impair_forks(philo, params, c_time);
 	}
-	philo->last_eat = get_current_time();
-	philo->count_eat += 1;
-	pthread_mutex_lock(&params->protect_printf);
-	printf("[-%ld-] Le p* %d est en train de Manger\n", c_time, philo->index);
-	pthread_mutex_unlock(&params->protect_printf);
-	usleep(params->eat_time * 1000);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_lock(&params->protect_printf);
-	printf("[-%ld-] Le p* %d est en train de Penser\n", c_time, philo->index);
-	pthread_mutex_unlock(&params->protect_printf);
-	pthread_mutex_lock(&params->protect_printf);
-	printf("[-%ld-] Le p* %d est en train de Dormir\n", c_time, philo->index);
-	pthread_mutex_unlock(&params->protect_printf);
-	usleep(params->sleep_time * 1000);
+	after_taking_forks(philo, params, c_time);
 }
 
 void	*routine(void *arg)
