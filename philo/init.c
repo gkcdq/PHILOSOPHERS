@@ -18,6 +18,7 @@ void    init_params(t_params **p, char **av)
         i++;
     }
     (*p)->p_dead = 0;
+    pthread_mutex_init(&(*p)->protect_printf, NULL);
 }
 
 void    init_philo(t_philo *philo, t_params *params)

@@ -31,6 +31,7 @@ typedef struct s_params
 	int				p_dead;
 	pthread_mutex_t	mutex_dead;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	protect_printf;
 }					t_params;
 
 typedef struct s_philo
