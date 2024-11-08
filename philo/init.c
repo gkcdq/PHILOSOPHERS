@@ -23,6 +23,8 @@ void	init_params(t_params **p, char **av)
 	(*p)->sleep_time = ft_atoi_philo(av[4], *p);
 	if (av[5])
 		(*p)->nbr_of_eat_time = ft_atoi_philo(av[5], *p);
+	else
+		(*p)->nbr_of_eat_time = -1;
 	pthread_mutex_init(&(*p)->mutex_dead, NULL);
 	(*p)->forks = malloc(sizeof(pthread_mutex_t) * (*p)->nbr_of_p);
 	while (i < (*p)->nbr_of_p)

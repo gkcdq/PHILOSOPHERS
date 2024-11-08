@@ -97,11 +97,11 @@ void	*routine(void *arg)
 		printf("[%ld] %d died\n", c_time, philos->index);
 		return (NULL);
 	}
-	if (params->nbr_of_eat_time)
+	if (params->nbr_of_eat_time > 0)
 	{
 		with_nbr_of_eat_time(philos, params);
 	}
-	else
+	else if (params->nbr_of_eat_time == -1)
 	{
 		whith_out_nbr_of_eat_time(philos, params);
 	}
