@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmilin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:30:09 by tmilin            #+#    #+#             */
-/*   Updated: 2024/11/01 18:08:11 by tmilin           ###   ########.fr       */
+/*   Updated: 2024/11/08 19:44:39 by tmilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,14 @@ void				init_philo(t_philo *philo, t_params *params);
 
 // routine.c
 void				*routine(void *arg);
+void				eating_sleeping(t_philo *philo, t_params *params);
+
+// routine_utils.c
+void				with_nbr_of_eat_time(t_philo *pl, t_params *pr);
+void				whith_out_nbr_of_eat_time(t_philo *pl, t_params *pr);
+void				check_death(t_philo *pl, t_params *pr, long int c_time);
 
 // main.c
-void    			free_for_philos(t_params *params, t_philo *philos);
+void				free_for_philos(t_params *params, t_philo *philos);
 
 #endif

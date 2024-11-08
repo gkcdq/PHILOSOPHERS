@@ -1,4 +1,4 @@
-SRCS        = main.c utils.c routine.c init.c
+SRCS        = main.c utils.c routine.c init.c routine_utils.c
 OBJS        = $(SRCS:.c=.o)
 NAME        = philo
 CC          = cc
