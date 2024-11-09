@@ -32,7 +32,6 @@ typedef struct s_params
 	pthread_mutex_t	mutex_dead;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	protect_printf;
-	pthread_mutex_t	protect_dead;
 	long int		start_time;
 }					t_params;
 

@@ -35,7 +35,6 @@ void	init_params(t_params **p, char **av)
 	(*p)->p_dead = 0;
 	pthread_mutex_init(&(*p)->protect_printf, NULL);
 	(*p)->start_time = get_current_time();
-	pthread_mutex_init(&(*p)->protect_dead, NULL);
 }
 
 void	init_philo(t_philo *philo, t_params *params)
