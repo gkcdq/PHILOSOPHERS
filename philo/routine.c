@@ -16,7 +16,7 @@ void	pair_forks(t_philo *philo, t_params *params, long int c_time)
 {
 		pthread_mutex_lock(philo->right_fork);
 		pthread_mutex_lock(&params->protect_printf);
-		c_time = get_current_time() - params->start_time;
+		c_time = (get_current_time() - params->start_time);
 		if (params->p_dead == 0)
 			printf("%ld %d has taken a fork\n", c_time, philo->index);
 		pthread_mutex_unlock(&params->protect_printf);
@@ -47,6 +47,7 @@ void	impair_forks(t_philo *philo, t_params *params, long int c_time)
 void	after_taking_forks_impair(t_philo *philo, t_params *params, long int c_time)
 {
 		philo->last_eat = get_current_time();
+		usleep(params->eat_time * 1000);
 		philo->count_eat += 1;
 		pthread_mutex_lock(&params->protect_printf);
 		c_time = get_current_time() - params->start_time;
@@ -55,7 +56,6 @@ void	after_taking_forks_impair(t_philo *philo, t_params *params, long int c_time
 		pthread_mutex_unlock(&params->protect_printf);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
-		usleep(params->eat_time * 1000);
 		pthread_mutex_lock(&params->protect_printf);
 		c_time = get_current_time() - params->start_time;
 		if (params->p_dead == 0)
