@@ -48,7 +48,7 @@ void	check_death(t_philo *philo, t_params *params, long int c_time)
 	{
 		pthread_mutex_lock(&params->protect_printf);
 		c_time = get_current_time() - params->start_time;
-		printf("[%ld] %d died\n", c_time, philo->index);
+		printf("%ld %d died\n", c_time, philo->index);
 		pthread_mutex_unlock(&params->protect_printf);
 		params->p_dead = 1;
 		pthread_mutex_unlock(&params->mutex_dead);
@@ -56,7 +56,7 @@ void	check_death(t_philo *philo, t_params *params, long int c_time)
 	}
 	pthread_mutex_lock(&params->protect_printf);
 	c_time = get_current_time() - params->start_time;
-	printf("[%ld] %d died\n", c_time, philo->index);
+	printf("%ld %d died\n", c_time, philo->index);
 	pthread_mutex_unlock(&params->protect_printf);
 	params->p_dead = 1;
 	return ;
