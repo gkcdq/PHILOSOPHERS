@@ -79,7 +79,7 @@ void	after_taking_forks_impair(t_philo *philo, t_params *params, long int c_time
 			pthread_mutex_unlock(&params->protect_printf);
 		}
 		pthread_mutex_unlock(&params->protect_dead);
-
+		usleep(7000);
 }
 
 void	after_taking_forks(t_philo *philo, t_params *params, long int c_time)
