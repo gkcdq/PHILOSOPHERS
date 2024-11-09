@@ -48,7 +48,11 @@ int	ft_atoi_philo(char *s, t_params *p)
 
 void	check_min_max(long sign, long n, t_params *p)
 {
-	if ((sign * n) > INT_MAX || (sign * n) < INT_MIN)
+	if ((sign * n) > INT_MAX || (sign * n) < 0)
+	{
+		printf("Error : Invalid value");
 		free(p);
+		exit(0) ;
+	}
 	return ;
 }
