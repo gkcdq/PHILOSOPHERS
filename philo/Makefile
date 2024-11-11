@@ -1,5 +1,6 @@
-SRCS        = main.c utils.c routine.c init.c routine_utils.c
-OBJS        = $(SRCS:.c=.o)
+SRCS        = main.c utils.c routine.c init.c routine_utils.c after_t_forks_ip.c after_t_forks.c
+OBJ_DIR     = obj
+OBJS        = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 NAME        = philo
 CC          = cc
 RM          = rm -f
@@ -8,14 +9,17 @@ CFLAGS      = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJS)
-
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.c
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
 clean:
 	$(RM) $(OBJS)
+	$(RM) -r $(OBJ_DIR)
 
 fclean: clean
 	$(RM) $(NAME)

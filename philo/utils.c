@@ -52,7 +52,7 @@ void	check_min_max(long sign, long n, t_params *p)
 	{
 		printf("Error : Invalid value");
 		free(p);
-		exit(0) ;
+		exit(0);
 	}
 	return ;
 }

@@ -65,6 +65,14 @@ void				with_nbr_of_eat_time(t_philo *pl, t_params *pr);
 void				whith_out_nbr_of_eat_time(t_philo *pl, t_params *pr);
 void				check_death(t_philo *pl, t_params *pr, long int c_time);
 
+// after_t_forks_ip.c
+void				after_taking_forks_impair(t_philo *philo, t_params *params,
+						long int c_time);
+
+// after_t_forks.c
+void				after_taking_forks(t_philo *philo, t_params *params,
+						long int c_time);
+
 // main.c
 void				free_for_philos(t_params *params, t_philo *philos);
 
