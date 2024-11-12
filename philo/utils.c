@@ -50,7 +50,7 @@ void	check_min_max(long sign, long n, t_params *p)
 {
 	if ((sign * n) > INT_MAX || (sign * n) < 0)
 	{
-		printf("Error : Invalid value");
+		printf("Error : Invalid value\n");
 		free(p);
 		exit(0);
 	}
