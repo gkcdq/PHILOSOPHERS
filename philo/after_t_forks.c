@@ -61,6 +61,6 @@ void	after_taking_forks(t_philo *philo, t_params *params, long int c_time)
 			to_think(philo, params, c_time);
 		pthread_mutex_unlock(&params->protect_dead);
 		if (params->eat_time > params->sleep_time)
-			usleep(10000);
+			sleep_time(philo, params);
 	}
 }

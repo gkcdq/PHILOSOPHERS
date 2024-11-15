@@ -64,6 +64,7 @@ void				eating_sleeping(t_philo *philo, t_params *params);
 void				with_nbr_of_eat_time(t_philo *pl, t_params *pr);
 void				whith_out_nbr_of_eat_time(t_philo *pl, t_params *pr);
 void				check_death(t_philo *pl, t_params *pr, long int c_time);
+void				sleep_time(t_philo *philo, t_params *params);
 
 // after_t_forks_ip.c
 void				after_taking_forks_impair(t_philo *philo, t_params *params,
