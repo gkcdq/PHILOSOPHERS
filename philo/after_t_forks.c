@@ -64,3 +64,28 @@ void	after_taking_forks(t_philo *philo, t_params *params, long int c_time)
 			sleep_time(philo, params);
 	}
 }
+
+void	after_taking_forks_impair(t_philo *philo, t_params *params,
+		long int c_time)
+{
+	philo->last_eat = get_current_time();
+	usleep(params->eat_time * 1000);
+	philo->count_eat += 1;
+	pthread_mutex_lock(&params->protect_dead);
+	if (params->p_dead == 0)
+		to_eat(philo, params, c_time);
+	pthread_mutex_unlock(&params->protect_dead);
+	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_lock(&params->protect_dead);
+	if (params->p_dead == 0)
+		to_sleep(philo, params, c_time);
+	pthread_mutex_unlock(&params->protect_dead);
+	usleep(params->sleep_time * 1000);
+	pthread_mutex_lock(&params->protect_dead);
+	if (params->p_dead == 0)
+		to_think(philo, params, c_time);
+	pthread_mutex_unlock(&params->protect_dead);
+	if (params->eat_time > params->sleep_time)
+		sleep_time(philo, params);
+}

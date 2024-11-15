@@ -1,4 +1,4 @@
-SRCS        = main.c utils.c routine.c init.c routine_utils.c after_t_forks_ip.c after_t_forks.c
+SRCS        = main.c utils.c routine.c init.c routine_utils.c after_t_forks.c
 OBJ_DIR     = obj
 OBJS        = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 NAME        = philo
