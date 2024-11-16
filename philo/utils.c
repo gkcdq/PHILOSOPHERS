@@ -76,3 +76,18 @@ void	check_digit(char *s, t_params *p)
 		i++;
 	}
 }
+
+void	action_sleep(t_philo *philo, t_params *params, long int c_time)
+{
+	usleep(params->die_time * 1000);
+	pthread_mutex_lock(&params->protect_dead);
+	params->p_dead = 1;
+	pthread_mutex_unlock(&params->protect_dead);
+	pthread_mutex_lock(&params->protect_printf);
+	printf("%ld %d died\n", c_time, philo->index);
+	return ;
+
+
+
+}
+

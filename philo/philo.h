@@ -52,7 +52,8 @@ int					ft_atoi_philo(char *s, t_params *p);
 void				check_min_max(long sign, long n, t_params *p);
 long				get_current_time(void);
 void				check_digit(char *s, t_params *p);
-
+void				action_sleep(t_philo *philo, t_params *params,
+						long int c_time);
 // init.c
 void				init_params(t_params **p, char **av);
 void				init_philo(t_philo *philo, t_params *params);
