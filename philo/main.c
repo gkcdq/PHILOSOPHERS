@@ -41,6 +41,8 @@ int	main(int ac, char **av)
 		printf("Usage: nbr_of_philo die_T eat_T sleep_T (nbr_of_eat_T)\n");
 		return (1);
 	}
+	if (av[2][0] == '0')
+		return 0;
 	params = malloc(sizeof(t_params));
 	init_params(&params, av);
 	philos = malloc(sizeof(t_philo) * params->nbr_of_p);
