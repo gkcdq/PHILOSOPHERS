@@ -18,7 +18,7 @@ void	to_eat(t_philo *philo, t_params *params, long int c_time)
 	c_time = get_current_time() - params->start_time;
 	printf("%ld %d is eating\n", c_time, philo->index);
 	pthread_mutex_unlock(&params->protect_printf);
-	if (params->eat_time > params->die_time)
+	if (params->eat_time >= params->die_time)
 	{
 		usleep(params->die_time * 1000);
 		pthread_mutex_lock(&params->protect_printf);
@@ -34,7 +34,7 @@ void	to_sleep(t_philo *philo, t_params *params, long int c_time)
 	c_time = get_current_time() - params->start_time;
 	printf("%ld %d is sleeping\n", c_time, philo->index);
 	pthread_mutex_unlock(&params->protect_printf);
-	if (params->sleep_time > params->die_time)
+	if (params->sleep_time >= params->die_time)
 	{
 		usleep(params->die_time * 1000);
 		pthread_mutex_lock(&params->protect_printf);
