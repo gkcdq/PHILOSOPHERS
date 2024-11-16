@@ -56,7 +56,7 @@ void	check_death(t_philo *philo, t_params *params, long int c_time)
 
 void	sleep_time(t_philo *philo, t_params *params)
 {
-	int s_time;
+	int	s_time;
 
 	(void)philo;
 	s_time = params->eat_time - params->sleep_time;

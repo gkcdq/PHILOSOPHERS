@@ -51,6 +51,7 @@ typedef struct s_philo
 int					ft_atoi_philo(char *s, t_params *p);
 void				check_min_max(long sign, long n, t_params *p);
 long				get_current_time(void);
+void				check_digit(char *s, t_params *p);
 
 // init.c
 void				init_params(t_params **p, char **av);

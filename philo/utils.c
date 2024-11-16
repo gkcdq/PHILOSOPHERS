@@ -29,6 +29,7 @@ int	ft_atoi_philo(char *s, t_params *p)
 	i = 0;
 	n = 0;
 	sign = 1;
+	check_digit(s, p);
 	while (s[i] <= 32)
 		i++;
 	if (s[i] == '+' || s[i] == '-')
@@ -55,4 +56,23 @@ void	check_min_max(long sign, long n, t_params *p)
 		exit(0);
 	}
 	return ;
+}
+
+void	check_digit(char *s, t_params *p)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '-' || s[i] == '+')
+			i++;
+		if ((s[i] < '0' || s[i] > '9'))
+		{
+			printf("Error : Invalid digit\n");
+			free(p);
+			exit(0);
+		}
+		i++;
+	}
 }
