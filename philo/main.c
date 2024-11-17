@@ -42,7 +42,7 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	if (av[2][0] == '0')
-		return 0;
+		return(0) ;
 	params = malloc(sizeof(t_params));
 	init_params(&params, av);
 	philos = malloc(sizeof(t_philo) * params->nbr_of_p);

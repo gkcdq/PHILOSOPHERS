@@ -14,31 +14,45 @@
 
 void	with_nbr_of_eat_time(t_philo *philos, t_params *params)
 {
-	while (philos->count_eat < params->nbr_of_eat_time)
+	if (params->eat_time >= params->die_time)
+		eat_time_sup_die_time(philos, params);
+	else if (params->sleep_time >= params->die_time)
+		sleep_time_sup_die_time(philos, params);
+	else
 	{
-		pthread_mutex_lock(&params->mutex_dead);
-		if (params->p_dead)
+		while (philos->count_eat < params->nbr_of_eat_time)
 		{
+			pthread_mutex_lock(&params->mutex_dead);
+			if (params->p_dead)
+			{
+				pthread_mutex_unlock(&params->mutex_dead);
+				return ;
+			}
 			pthread_mutex_unlock(&params->mutex_dead);
-			return ;
+			eating_sleeping(philos, params);
 		}
-		pthread_mutex_unlock(&params->mutex_dead);
-		eating_sleeping(philos, params);
 	}
 }
 
 void	whith_out_nbr_of_eat_time(t_philo *philos, t_params *params)
 {
-	while (1)
+	if (params->eat_time >= params->die_time)
+		eat_time_sup_die_time(philos, params);
+	else if (params->sleep_time >= params->die_time)
+		sleep_time_sup_die_time(philos, params);
+	else
 	{
-		pthread_mutex_lock(&params->mutex_dead);
-		if (params->p_dead)
+		while (1)
 		{
+			pthread_mutex_lock(&params->mutex_dead);
+			if (params->p_dead)
+			{
+				pthread_mutex_unlock(&params->mutex_dead);
+				return ;
+			}
 			pthread_mutex_unlock(&params->mutex_dead);
-			return ;
+			eating_sleeping(philos, params);
 		}
-		pthread_mutex_unlock(&params->mutex_dead);
-		eating_sleeping(philos, params);
 	}
 }
 

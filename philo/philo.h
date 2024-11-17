@@ -60,6 +60,10 @@ void				init_philo(t_philo *philo, t_params *params);
 // routine.c
 void				*routine(void *arg);
 void				eating_sleeping(t_philo *philo, t_params *params);
+void				pair_forks(t_philo *philo, t_params *params,
+						long int c_time);
+void				impair_forks(t_philo *philo, t_params *params,
+						long int c_time);
 
 // routine_utils.c
 void				with_nbr_of_eat_time(t_philo *pl, t_params *pr);
@@ -74,8 +78,29 @@ void				after_taking_forks_impair(t_philo *philo, t_params *params,
 // after_t_forks.c
 void				after_taking_forks(t_philo *philo, t_params *params,
 						long int c_time);
+void				to_eat(t_philo *philo, t_params *params, long int c_time);
 
 // main.c
 void				free_for_philos(t_params *params, t_philo *philos);
+
+// eat_t_sup-die-t.c
+void				eat_time_sup_die_time(t_philo *philo, t_params *params);
+void				eating_sleeping_v2(t_philo *philo, t_params *params);
+void				after_taking_forks_for_eat(t_philo *philo, t_params *params,
+						long int c_time);
+void				after_taking_forks_impair_kekw(t_philo *philo,
+						t_params *params, long int c_time);
+void				to_die(t_philo *philo, t_params *params, long int c_time);
+void				to_die(t_philo *philo, t_params *params, long int c_time);
+
+// slep_t_sup_die_t.c
+void				eating_sleeping_v3(t_philo *philo, t_params *params);
+void				sleep_time_sup_die_time(t_philo *philo, t_params *params);
+void				to_die_sleep(t_philo *philo, t_params *params,
+						long int c_time);
+void				after_taking_forks_impair_sleep(t_philo *philo,
+						t_params *params, long int c_time);
+void				after_taking_forks_for_sleep(t_philo *philo,
+						t_params *params, long int c_time);
 
 #endif
