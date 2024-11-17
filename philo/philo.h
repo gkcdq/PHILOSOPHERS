@@ -91,13 +91,10 @@ void				after_taking_forks_for_eat(t_philo *philo, t_params *params,
 void				after_taking_forks_impair_kekw(t_philo *philo,
 						t_params *params, long int c_time);
 void				to_die(t_philo *philo, t_params *params, long int c_time);
-void				to_die(t_philo *philo, t_params *params, long int c_time);
 
 // slep_t_sup_die_t.c
 void				eating_sleeping_v3(t_philo *philo, t_params *params);
 void				sleep_time_sup_die_time(t_philo *philo, t_params *params);
-void				to_die_sleep(t_philo *philo, t_params *params,
-						long int c_time);
 void				after_taking_forks_impair_sleep(t_philo *philo,
 						t_params *params, long int c_time);
 void				after_taking_forks_for_sleep(t_philo *philo,
