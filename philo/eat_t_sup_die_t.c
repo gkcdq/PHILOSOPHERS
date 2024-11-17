@@ -78,4 +78,5 @@ void	to_die(t_philo *philo, t_params *params, long int c_time)
 	printf("%ld %d is dead\n", c_time, philo->index);
 	pthread_mutex_unlock(&params->protect_printf);
 	params->p_dead = 1;
+	return ;
 }

@@ -50,10 +50,7 @@ void	after_taking_forks_for_sleep(t_philo *philo, t_params *params,
 	{
 		philo->last_eat = get_current_time();
 		philo->count_eat += 1;
-		pthread_mutex_lock(&params->protect_dead);
-		if (params->p_dead == 0)
-			to_eat(philo, params, c_time);
-		pthread_mutex_unlock(&params->protect_dead);
+		to_eat(philo, params, c_time);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_lock(&params->protect_dead);
@@ -68,10 +65,7 @@ void	after_taking_forks_impair_sleep(t_philo *philo, t_params *params,
 {
 	philo->last_eat = get_current_time();
 	philo->count_eat += 1;
-	pthread_mutex_lock(&params->protect_dead);
-	if (params->p_dead == 0)
-		to_eat(philo, params, c_time);
-	pthread_mutex_unlock(&params->protect_dead);
+	to_eat(philo, params, c_time);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_lock(&params->protect_dead);
