@@ -17,12 +17,15 @@ void	eat_time_sup_die_time(t_philo *philo, t_params *params)
 	while (1)
 	{
 		pthread_mutex_lock(&params->mutex_dead);
+		pthread_mutex_lock(&params->protect_dead);
 		if (params->p_dead)
 		{
 			pthread_mutex_unlock(&params->mutex_dead);
+			pthread_mutex_unlock(&params->protect_dead);
 			return ;
 		}
 		pthread_mutex_unlock(&params->mutex_dead);
+		pthread_mutex_unlock(&params->protect_dead);
 		eating_sleeping_v2(philo, params);
 	}
 }
@@ -54,7 +57,6 @@ void	after_taking_forks_for_eat(t_philo *philo, t_params *params,
 		pthread_mutex_unlock(&params->protect_dead);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
-		return ;
 	}
 }
 
@@ -67,7 +69,6 @@ void	after_taking_forks_impair_kekw(t_philo *philo, t_params *params,
 	pthread_mutex_unlock(&params->protect_dead);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
-	return ;
 }
 
 void	to_die(t_philo *philo, t_params *params, long int c_time)
@@ -78,5 +79,4 @@ void	to_die(t_philo *philo, t_params *params, long int c_time)
 	printf("%ld %d is dead\n", c_time, philo->index);
 	pthread_mutex_unlock(&params->protect_printf);
 	params->p_dead = 1;
-	return ;
 }
