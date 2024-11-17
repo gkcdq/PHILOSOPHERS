@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   eat_t_sup_die_t.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmilin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/17 13:53:38 by tmilin            #+#    #+#             */
+/*   Updated: 2024/11/17 13:53:39 by tmilin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	eat_time_sup_die_time(t_philo *philo, t_params *params)
@@ -14,6 +26,7 @@ void	eat_time_sup_die_time(t_philo *philo, t_params *params)
 		eating_sleeping_v2(philo, params);
 	}
 }
+
 void	eating_sleeping_v2(t_philo *philo, t_params *params)
 {
 	long int	c_time;
@@ -27,6 +40,7 @@ void	eating_sleeping_v2(t_philo *philo, t_params *params)
 		impair_forks(philo, params, c_time);
 	after_taking_forks_for_eat(philo, params, c_time);
 }
+
 void	after_taking_forks_for_eat(t_philo *philo, t_params *params,
 		long int c_time)
 {
