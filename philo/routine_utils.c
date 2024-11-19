@@ -18,6 +18,8 @@ void	with_nbr_of_eat_time(t_philo *philos, t_params *params)
 		eat_time_sup_die_time(philos, params);
 	else if (params->sleep_time >= params->die_time)
 		sleep_time_sup_die_time(philos, params);
+	else if (params->eat_time + params->sleep_time >= params->die_time)
+		sleep_time_sup_die_time(philos, params);
 	else
 	{
 		while (philos->count_eat < params->nbr_of_eat_time)
@@ -39,6 +41,8 @@ void	whith_out_nbr_of_eat_time(t_philo *philos, t_params *params)
 	if (params->eat_time >= params->die_time)
 		eat_time_sup_die_time(philos, params);
 	else if (params->sleep_time >= params->die_time)
+		sleep_time_sup_die_time(philos, params);
+	else if (params->eat_time + params->sleep_time >= params->die_time)
 		sleep_time_sup_die_time(philos, params);
 	else
 	{
