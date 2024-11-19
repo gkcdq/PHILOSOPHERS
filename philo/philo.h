@@ -79,6 +79,7 @@ void				after_taking_forks_impair(t_philo *philo, t_params *params,
 void				after_taking_forks(t_philo *philo, t_params *params,
 						long int c_time);
 void				to_eat(t_philo *philo, t_params *params, long int c_time);
+void				to_sleep(t_philo *philo, t_params *params, long int c_time);
 
 // main.c
 void				free_for_philos(t_params *params, t_philo *philos);
@@ -90,7 +91,8 @@ void				after_taking_forks_for_eat(t_philo *philo, t_params *params,
 						long int c_time);
 void				after_taking_forks_impair_kekw(t_philo *philo,
 						t_params *params, long int c_time);
-void				to_die(t_philo *philo, t_params *params, long int c_time);
+void				to_die(t_philo *philo, t_params *params, long int c_time,
+						char c);
 
 // slep_t_sup_die_t.c
 void				eating_sleeping_v3(t_philo *philo, t_params *params);

@@ -53,7 +53,10 @@ void	after_taking_forks_for_eat(t_philo *philo, t_params *params,
 	{
 		pthread_mutex_lock(&params->protect_dead);
 		if (params->p_dead == 0)
-			to_die(philo, params, c_time);
+		{
+			to_eat(philo, params, c_time);
+			to_die(philo, params, c_time, 'e');
+		}
 		pthread_mutex_unlock(&params->protect_dead);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
@@ -65,18 +68,33 @@ void	after_taking_forks_impair_kekw(t_philo *philo, t_params *params,
 {
 	pthread_mutex_lock(&params->protect_dead);
 	if (params->p_dead == 0)
-		to_die(philo, params, c_time);
+	{
+		to_eat(philo, params, c_time);
+		to_die(philo, params, c_time, 'e');
+	}
 	pthread_mutex_unlock(&params->protect_dead);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 }
 
-void	to_die(t_philo *philo, t_params *params, long int c_time)
+void	to_die(t_philo *philo, t_params *params, long int c_time, char c)
 {
-	usleep(params->die_time * 1000);
-	pthread_mutex_lock(&params->protect_printf);
-	c_time = get_current_time() - params->start_time;
-	printf("%ld %d is dead\n", c_time, philo->index);
-	pthread_mutex_unlock(&params->protect_printf);
-	params->p_dead = 1;
+	if (c == 'e')
+	{
+		usleep(params->die_time * 1000);
+		pthread_mutex_lock(&params->protect_printf);
+		c_time = get_current_time() - params->start_time;
+		printf("%ld %d is dead\n", c_time, philo->index);
+		pthread_mutex_unlock(&params->protect_printf);
+		params->p_dead = 1;
+	}
+	if (c == 's')
+	{
+		usleep((params->die_time - params->eat_time) * 1000);
+		pthread_mutex_lock(&params->protect_printf);
+		c_time = get_current_time() - params->start_time;
+		printf("%ld %d is dead\n", c_time, philo->index);
+		pthread_mutex_unlock(&params->protect_printf);
+		params->p_dead = 1;
+	}
 }

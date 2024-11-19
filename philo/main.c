@@ -35,12 +35,12 @@ void	check_av(char **av)
 	if (av[2][0] == '0')
 	{
 		printf("Warning : Invalid value (die_time)\n");
-		exit(0) ;
+		exit(0);
 	}
 	if (av[1][0] == '0')
 	{
 		printf("Warning : Invalid value (nbr_of_philo)\n");
-		exit(0) ;
+		exit(0);
 	}
 }
 
