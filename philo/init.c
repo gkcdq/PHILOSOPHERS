@@ -36,11 +36,13 @@ void	init_params(t_params **p, char **av)
 	pthread_mutex_init(&(*p)->protect_printf, NULL);
 	(*p)->start_time = get_current_time();
 	pthread_mutex_init(&(*p)->protect_dead, NULL);
+	pthread_mutex_init(&(*p)->p_t_d_r, NULL);
 }
 
 void	init_philo(t_philo *philo, t_params *params)
 {
 	int	i;
+	int	res;
 
 	i = 0;
 	while (i < params->nbr_of_p)
@@ -51,7 +53,12 @@ void	init_philo(t_philo *philo, t_params *params)
 		philo[i].right_fork = &params->forks[(i + 1) % params->nbr_of_p];
 		philo[i].params = params;
 		philo[i].count_eat = 0;
-		pthread_create(&philo[i].thread, NULL, routine, &philo[i]);
+		res = pthread_create(&philo[i].thread, NULL, routine, &philo[i]);
+		if(res != 0)
+		{
+			printf("Error : thread creation");
+			return ;
+		}
 		i++;
 	}
 }

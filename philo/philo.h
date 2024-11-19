@@ -33,6 +33,7 @@ typedef struct s_params
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	protect_printf;
 	pthread_mutex_t	protect_dead;
+	pthread_mutex_t	p_t_d_r;
 	long int		start_time;
 }					t_params;
 
@@ -101,5 +102,9 @@ void				after_taking_forks_impair_sleep(t_philo *philo,
 						t_params *params, long int c_time);
 void				after_taking_forks_for_sleep(t_philo *philo,
 						t_params *params, long int c_time);
+void				to_die_v2(t_philo *philo, t_params *params,
+						long int c_time);
+void				to_die_v3(t_philo *philo, t_params *params,
+						long int c_time);
 
 #endif
