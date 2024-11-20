@@ -25,11 +25,14 @@ void	with_nbr_of_eat_time(t_philo *philos, t_params *params)
 		while (philos->count_eat < params->nbr_of_eat_time)
 		{
 			pthread_mutex_lock(&params->mutex_dead);
+			pthread_mutex_lock(&params->protect_dead);
 			if (params->p_dead)
 			{
 				pthread_mutex_unlock(&params->mutex_dead);
+				pthread_mutex_unlock(&params->protect_dead);
 				return ;
 			}
+			pthread_mutex_unlock(&params->protect_dead);
 			pthread_mutex_unlock(&params->mutex_dead);
 			eating_sleeping(philos, params);
 		}
@@ -49,11 +52,14 @@ void	whith_out_nbr_of_eat_time(t_philo *philos, t_params *params)
 		while (1)
 		{
 			pthread_mutex_lock(&params->mutex_dead);
+			pthread_mutex_lock(&params->protect_dead);
 			if (params->p_dead)
 			{
 				pthread_mutex_unlock(&params->mutex_dead);
+				pthread_mutex_unlock(&params->protect_dead);
 				return ;
 			}
+			pthread_mutex_unlock(&params->protect_dead);
 			pthread_mutex_unlock(&params->mutex_dead);
 			eating_sleeping(philos, params);
 		}

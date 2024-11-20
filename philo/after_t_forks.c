@@ -12,30 +12,6 @@
 
 #include "philo.h"
 
-void	to_eat(t_philo *philo, t_params *params, long int c_time)
-{
-	pthread_mutex_lock(&params->protect_printf);
-	c_time = get_current_time() - params->start_time;
-	printf("%ld %d is eating\n", c_time, philo->index);
-	pthread_mutex_unlock(&params->protect_printf);
-}
-
-void	to_sleep(t_philo *philo, t_params *params, long int c_time)
-{
-	pthread_mutex_lock(&params->protect_printf);
-	c_time = get_current_time() - params->start_time;
-	printf("%ld %d is sleeping\n", c_time, philo->index);
-	pthread_mutex_unlock(&params->protect_printf);
-}
-
-void	to_think(t_philo *philo, t_params *params, long int c_time)
-{
-	pthread_mutex_lock(&params->protect_printf);
-	c_time = get_current_time() - params->start_time;
-	printf("%ld %d is thinking\n", c_time, philo->index);
-	pthread_mutex_unlock(&params->protect_printf);
-}
-
 void	after_taking_forks(t_philo *philo, t_params *params, long int c_time)
 {
 	long int	s_time;
@@ -48,10 +24,7 @@ void	after_taking_forks(t_philo *philo, t_params *params, long int c_time)
 		philo->last_eat = get_current_time();
 		usleep(params->eat_time * 1000);
 		philo->count_eat += 1;
-		pthread_mutex_lock(&params->protect_dead);
-		if (params->p_dead == 0)
-			to_eat(philo, params, c_time);
-		pthread_mutex_unlock(&params->protect_dead);
+		for_eat(philo, params, c_time);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_lock(&params->protect_dead);
@@ -59,16 +32,12 @@ void	after_taking_forks(t_philo *philo, t_params *params, long int c_time)
 			to_sleep(philo, params, c_time);
 		pthread_mutex_unlock(&params->protect_dead);
 		pthread_mutex_lock(&params->protect_dead);
-		if (params->p_dead == 0 && params->eat_time + params->sleep_time + s_time >= params->die_time)
-			to_die_v3(philo, params, c_time);
+		if (params->p_dead == 0 && params->eat_time + params->sleep_time
+			+ s_time >= params->die_time)
+			to_die_v2(philo, params, c_time);
 		pthread_mutex_unlock(&params->protect_dead);
 		usleep(params->sleep_time * 1000);
-		pthread_mutex_lock(&params->protect_dead);
-		if (params->p_dead == 0)
-			to_think(philo, params, c_time);
-		pthread_mutex_unlock(&params->protect_dead);
-		if (params->eat_time > params->sleep_time)
-			sleep_time(philo, params);
+		for_think(philo, params, c_time);
 	}
 }
 
@@ -81,10 +50,7 @@ void	after_taking_forks_impair(t_philo *philo, t_params *params,
 	philo->last_eat = get_current_time();
 	usleep(params->eat_time * 1000);
 	philo->count_eat += 1;
-	pthread_mutex_lock(&params->protect_dead);
-	if (params->p_dead == 0)
-		to_eat(philo, params, c_time);
-	pthread_mutex_unlock(&params->protect_dead);
+	for_eat(philo, params, c_time);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_lock(&params->protect_dead);
@@ -92,10 +58,24 @@ void	after_taking_forks_impair(t_philo *philo, t_params *params,
 		to_sleep(philo, params, c_time);
 	pthread_mutex_unlock(&params->protect_dead);
 	pthread_mutex_lock(&params->protect_dead);
-	if (params->p_dead == 0 && params->eat_time + params->sleep_time + s_time >= params->die_time)
+	if (params->p_dead == 0 && params->eat_time + params->sleep_time
+		+ s_time >= params->die_time)
 		to_die_v2(philo, params, c_time);
 	pthread_mutex_unlock(&params->protect_dead);
 	usleep(params->sleep_time * 1000);
+	for_think(philo, params, c_time);
+}
+
+void	for_eat(t_philo *philo, t_params *params, long int c_time)
+{
+	pthread_mutex_lock(&params->protect_dead);
+	if (params->p_dead == 0)
+		to_eat(philo, params, c_time);
+	pthread_mutex_unlock(&params->protect_dead);
+}
+
+void	for_think(t_philo *philo, t_params *params, long int c_time)
+{
 	pthread_mutex_lock(&params->protect_dead);
 	if (params->p_dead == 0)
 		to_think(philo, params, c_time);
