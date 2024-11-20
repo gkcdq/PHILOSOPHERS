@@ -30,18 +30,24 @@ void	free_for_philos(t_params *params, t_philo *philos)
 	free(params);
 }
 
-void	check_av(char **av)
+int	check_av(char **av, int ac)
 {
+	if (ac < 5 || ac > 6)
+	{
+		printf("Usage: nbr_of_philo die_T eat_T sleep_T (nbr_of_eat_T)\n");
+		return (1);
+	}
 	if (av[2][0] == '0')
 	{
 		printf("Warning : Invalid value (die_time)\n");
-		exit(0);
+		return (0);
 	}
 	if (av[1][0] == '0')
 	{
 		printf("Warning : Invalid value (nbr_of_philo)\n");
-		exit(0);
+		return (0);
 	}
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -50,16 +56,17 @@ int	main(int ac, char **av)
 	t_philo		*philos;
 	int			i;
 
-	if (ac < 5 || ac > 6)
-	{
-		printf("Usage: nbr_of_philo die_T eat_T sleep_T (nbr_of_eat_T)\n");
+	if (check_av(av, ac))
 		return (1);
-	}
-	check_av(av);
 	params = malloc(sizeof(t_params));
+	if (!params)
+		return (1);
 	init_params(&params, av);
 	philos = malloc(sizeof(t_philo) * params->nbr_of_p);
-	init_philo(philos, params);
+	if (!philos)
+		return (1);
+	if (!init_philo(philos, params))
+		return (1);
 	i = 0;
 	while (i < params->nbr_of_p)
 	{

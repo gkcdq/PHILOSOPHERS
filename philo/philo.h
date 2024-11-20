@@ -52,7 +52,7 @@ void				check_min_max(long sign, long n, t_params *p);
 long				get_current_time(void);
 void				check_digit(char *s, t_params *p);
 void				init_params(t_params **p, char **av);
-void				init_philo(t_philo *philo, t_params *params);
+int					init_philo(t_philo *philo, t_params *params);
 void				*routine(void *arg);
 void				eating_sleeping(t_philo *philo, t_params *params);
 void				pair_forks(t_philo *philo, t_params *params,

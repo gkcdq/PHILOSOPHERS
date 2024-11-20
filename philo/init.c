@@ -38,7 +38,7 @@ void	init_params(t_params **p, char **av)
 	pthread_mutex_init(&(*p)->protect_dead, NULL);
 }
 
-void	init_philo(t_philo *philo, t_params *params)
+int	init_philo(t_philo *philo, t_params *params)
 {
 	int	i;
 	int	res;
@@ -56,8 +56,9 @@ void	init_philo(t_philo *philo, t_params *params)
 		if (res != 0)
 		{
 			printf("Error : thread creation");
-			return ;
+			return (0);
 		}
 		i++;
 	}
+	return (1);
 }

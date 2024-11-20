@@ -22,9 +22,9 @@ void	after_taking_forks(t_philo *philo, t_params *params, long int c_time)
 	else
 	{
 		philo->last_eat = get_current_time();
-		usleep(params->eat_time * 1000);
 		philo->count_eat += 1;
 		for_eat(philo, params, c_time);
+		usleep(params->eat_time * 1000);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 		for_sleep(philo, params, c_time);
@@ -45,9 +45,9 @@ void	after_taking_forks_impair(t_philo *philo, t_params *params,
 
 	s_time = params->eat_time - params->sleep_time;
 	philo->last_eat = get_current_time();
-	usleep(params->eat_time * 1000);
 	philo->count_eat += 1;
 	for_eat(philo, params, c_time);
+	usleep(params->eat_time * 1000);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 	for_sleep(philo, params, c_time);
