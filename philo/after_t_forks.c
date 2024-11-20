@@ -27,10 +27,7 @@ void	after_taking_forks(t_philo *philo, t_params *params, long int c_time)
 		for_eat(philo, params, c_time);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_lock(&params->protect_dead);
-		if (params->p_dead == 0)
-			to_sleep(philo, params, c_time);
-		pthread_mutex_unlock(&params->protect_dead);
+		for_sleep(philo, params, c_time);
 		pthread_mutex_lock(&params->protect_dead);
 		if (params->p_dead == 0 && params->eat_time + params->sleep_time
 			+ s_time >= params->die_time)
@@ -53,10 +50,7 @@ void	after_taking_forks_impair(t_philo *philo, t_params *params,
 	for_eat(philo, params, c_time);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_lock(&params->protect_dead);
-	if (params->p_dead == 0)
-		to_sleep(philo, params, c_time);
-	pthread_mutex_unlock(&params->protect_dead);
+	for_sleep(philo, params, c_time);
 	pthread_mutex_lock(&params->protect_dead);
 	if (params->p_dead == 0 && params->eat_time + params->sleep_time
 		+ s_time >= params->die_time)
@@ -71,6 +65,14 @@ void	for_eat(t_philo *philo, t_params *params, long int c_time)
 	pthread_mutex_lock(&params->protect_dead);
 	if (params->p_dead == 0)
 		to_eat(philo, params, c_time);
+	pthread_mutex_unlock(&params->protect_dead);
+}
+
+void	for_sleep(t_philo *philo, t_params *params, long int c_time)
+{
+	pthread_mutex_lock(&params->protect_dead);
+	if (params->p_dead == 0)
+		to_sleep(philo, params, c_time);
 	pthread_mutex_unlock(&params->protect_dead);
 }
 
