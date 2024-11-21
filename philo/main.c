@@ -25,6 +25,7 @@ void	free_for_philos(t_params *params, t_philo *philos)
 	pthread_mutex_destroy(&params->protect_printf);
 	pthread_mutex_destroy(&params->protect_dead);
 	pthread_mutex_destroy(&params->mutex_dead);
+	pthread_mutex_destroy(&params->no_data_race);
 	free(params->forks);
 	free(philos);
 	free(params);

@@ -25,16 +25,17 @@ void	init_params(t_params **p, char **av)
 		(*p)->nbr_of_eat_time = ft_atoi_philo(av[5], *p);
 	else
 		(*p)->nbr_of_eat_time = -1;
-	pthread_mutex_init(&(*p)->mutex_dead, NULL);
 	(*p)->forks = malloc(sizeof(pthread_mutex_t) * (*p)->nbr_of_p);
+	(*p)->p_dead = 0;
+	(*p)->start_time = get_current_time();
 	while (i < (*p)->nbr_of_p)
 	{
 		pthread_mutex_init(&(*p)->forks[i], NULL);
 		i++;
 	}
-	(*p)->p_dead = 0;
+	pthread_mutex_init(&(*p)->no_data_race, NULL);
 	pthread_mutex_init(&(*p)->protect_printf, NULL);
-	(*p)->start_time = get_current_time();
+	pthread_mutex_init(&(*p)->mutex_dead, NULL);
 	pthread_mutex_init(&(*p)->protect_dead, NULL);
 }
 

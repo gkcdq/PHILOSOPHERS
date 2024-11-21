@@ -82,6 +82,6 @@ void	for_think(t_philo *philo, t_params *params, long int c_time)
 	if (params->p_dead == 0)
 		to_think(philo, params, c_time);
 	pthread_mutex_unlock(&params->protect_dead);
-	if (params->eat_time > params->sleep_time)
+	if (params->eat_time >= params->sleep_time)
 		sleep_time(philo, params);
 }

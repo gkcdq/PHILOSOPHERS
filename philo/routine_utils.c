@@ -72,9 +72,7 @@ void	check_death(t_philo *philo, t_params *params, long int c_time)
 	c_time = get_current_time() - params->start_time;
 	printf("%ld %d died\n", c_time, philo->index);
 	pthread_mutex_unlock(&params->protect_printf);
-	pthread_mutex_lock(&params->protect_dead);
 	params->p_dead = 1;
-	pthread_mutex_unlock(&params->protect_dead);
 	return ;
 }
 

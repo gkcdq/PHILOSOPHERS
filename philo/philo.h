@@ -23,27 +23,28 @@
 
 typedef struct s_params
 {
+	pthread_mutex_t	mutex_dead;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	protect_printf;
+	pthread_mutex_t	protect_dead;
+	pthread_mutex_t	no_data_race;
 	int				nbr_of_p;
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
 	int				nbr_of_eat_time;
 	int				p_dead;
-	pthread_mutex_t	mutex_dead;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	protect_printf;
-	pthread_mutex_t	protect_dead;
 	long int		start_time;
 }					t_params;
 
 typedef struct s_philo
 {
-	int				index;
-	int				count_eat;
-	long			last_eat;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	long long		last_eat;
+	int				index;
+	int				count_eat;
 	struct s_params	*params;
 }					t_philo;
 
