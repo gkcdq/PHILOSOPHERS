@@ -53,6 +53,7 @@ void	after_taking_forks_for_sleep(t_philo *philo, t_params *params,
 		to_eat(philo, params, c_time);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(&params->no_data_race);
 		usleep(params->eat_time * 1000);
 		pthread_mutex_lock(&params->protect_dead);
 		if (params->p_dead == 0)
@@ -72,6 +73,7 @@ void	after_taking_forks_impair_sleep(t_philo *philo, t_params *params,
 	to_eat(philo, params, c_time);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(&params->no_data_race);
 	usleep(params->eat_time * 1000);
 	pthread_mutex_lock(&params->protect_dead);
 	if (params->p_dead == 0)

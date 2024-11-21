@@ -60,6 +60,7 @@ void	after_taking_forks_for_eat(t_philo *philo, t_params *params,
 		pthread_mutex_unlock(&params->protect_dead);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(&params->no_data_race);
 	}
 }
 
@@ -75,4 +76,5 @@ void	after_taking_forks_impair_kekw(t_philo *philo, t_params *params,
 	pthread_mutex_unlock(&params->protect_dead);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(&params->no_data_race);
 }

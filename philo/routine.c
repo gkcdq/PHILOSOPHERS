@@ -14,6 +14,7 @@
 
 void	pair_forks(t_philo *philo, t_params *params, long int c_time)
 {
+	pthread_mutex_lock(&params->no_data_race);
 	pthread_mutex_lock(philo->right_fork);
 	pthread_mutex_lock(&params->protect_printf);
 	c_time = (get_current_time() - params->start_time);
@@ -30,6 +31,7 @@ void	pair_forks(t_philo *philo, t_params *params, long int c_time)
 
 void	impair_forks(t_philo *philo, t_params *params, long int c_time)
 {
+	pthread_mutex_lock(&params->no_data_race);
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(&params->protect_printf);
 	c_time = get_current_time() - params->start_time;
