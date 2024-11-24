@@ -24,11 +24,13 @@ void	pair_forks(t_philo *philo, t_params *params, long int c_time)
 	pthread_mutex_unlock(&params->protect_printf);
 	pthread_mutex_unlock(&params->protect_dead);
 	pthread_mutex_lock(philo->left_fork);
+	pthread_mutex_lock(&params->protect_dead);
 	pthread_mutex_lock(&params->protect_printf);
 	c_time = get_current_time() - params->start_time;
 	if (params->p_dead == 0)
 		printf("%ld %d has taken a fork\n", c_time, philo->index);
 	pthread_mutex_unlock(&params->protect_printf);
+	pthread_mutex_unlock(&params->protect_dead);
 }
 
 void	impair_forks(t_philo *philo, t_params *params, long int c_time)
@@ -43,11 +45,13 @@ void	impair_forks(t_philo *philo, t_params *params, long int c_time)
 	pthread_mutex_unlock(&params->protect_printf);
 	pthread_mutex_unlock(&params->protect_dead);
 	pthread_mutex_lock(philo->right_fork);
+	pthread_mutex_lock(&params->protect_dead);
 	pthread_mutex_lock(&params->protect_printf);
 	c_time = get_current_time() - params->start_time;
 	if (params->p_dead == 0)
 		printf("%ld %d has taken a fork\n", c_time, philo->index);
 	pthread_mutex_unlock(&params->protect_printf);
+	pthread_mutex_unlock(&params->protect_dead);
 }
 
 void	eating_sleeping(t_philo *philo, t_params *params)
@@ -88,7 +92,8 @@ void	*routine(void *arg)
 		printf("%ld %d died\n", c_time, philos->index);
 		return (NULL);
 	}
-	if (params->nbr_of_p % 2 != 0 && ((params->eat_time * 3) >= params->die_time))
+	if (params->nbr_of_p % 2 != 0 && ((params->eat_time
+				* 3) >= params->die_time))
 		i_m_done(philos, params);
 	if (params->nbr_of_eat_time > 0)
 		with_nbr_of_eat_time(philos, params);
