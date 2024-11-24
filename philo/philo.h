@@ -93,5 +93,6 @@ void				for_think(t_philo *philo, t_params *params,
 void				for_eat(t_philo *philo, t_params *params, long int c_time);
 void				for_sleep(t_philo *philo, t_params *params,
 						long int c_time);
+void				i_m_done(t_philo *philo, t_params *params);
 
 #endif
